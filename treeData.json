@@ -1,0 +1,96 @@
+{
+  "name": "Koch Industries",
+  "children": [
+    { 
+      "name": "Abcor Japan Company, Ltd."
+    },
+    { "name": "Ashburn Hill Corp." 
+    },
+    { "name": "Buckeye Technologies, Inc." 
+    },
+    { "name": "CGLA Liquidation, Inc." 
+    },
+    { "name": "Colonial Pipeline Company" 
+    },
+    { "name": "EFT Energy Inc" 
+    },
+    { "name": "Flint Hills Resources Alaska LLC" 
+    },
+    { "name": "Flint Hills Resources LLC",
+      "children": [
+        {"name": "Flint Hills Resources Alaska LLC"},
+        {"name": "Flint Hills Resources B.V."}
+        
+      ]
+    },
+    { "name": "Flint Hills Resources, LP" 
+    },
+    { "name": "Georgia-Pacific Corp." 
+    },
+    { "name": "Georgia-Pacific GB Limited" 
+    },
+    { "name": "Georgia-Pacific LLC",
+      "children" :[
+        {"name":"British Tissues Limited"},
+        {"name":"Fort Sterling Limited"},
+        {"name":"Georgia-Pacific Group Services Limited"}
+      ]
+    },
+    { "name": "Industrie Meccaniche di Bagnolo S.P.A." 
+    },
+    { "name": "Invista (Nederland) B.V." 
+    },
+    { "name": "INVISTA B.V." 
+    },
+    { "name": "INVISTA Inc.",
+      "children": [
+        {"name":"INVISTA B.V."},
+        {"name":"INVISTA International S.a r.l."},
+        {"name":"Invista Textiles (U.K.) Limited"},
+        {"name":"KoSa B.V."}
+      ]
+    },
+    { "name": "J & H Bunn" 
+    },
+    { "name": "John Zink Company, LLC" 
+    },
+    { "name": "Koch Enterprises Inc.",
+      "children": [
+           {"name": "Abcor Japan Company, Ltd."},
+           {"name":"Audubon Metals"},
+           {"name":"Brake Supply Heavy Equipment Parts and Components"},
+           {"name":"George Koch Sons de Mexico S. de R.L. de C.V."},
+           {"name":"George Koch Sons Europe Ltd."},
+           {"name":"Gibs Die Casting - Dalian/Korea/Hungary/Brasil division"},
+           {"name":"Koch Air LLC."},
+           {"name":"KOCH George Koch Sons, LLC."},
+           {"name":"South Western Communications, Inc."}
+        
+      ]
+    },
+    { "name": "Koch Equity Development" 
+    },
+    { "name": "Koch Exploration Company, LLC" 
+    },
+    { "name": "Koch Fertilizer, LLC" 
+    },
+    { "name": "Koch Heat Transfer Company, LP" 
+    },
+    { "name": "Koch-Glitsch, LP" 
+    },
+    { "name": "KoSa" 
+    },
+    { "name": "Molex Holding GmbH" 
+    },
+    { "name": "Molex Inc." 
+    },
+    { "name": "Molex Zetronic S.R.L." 
+    },
+    { "name": "Oplink Communications, Inc." 
+    },
+    { "name": "Phillips-Medisize Corp." 
+    },
+    { "name": "PURON, AG" 
+    }
+  ]
+}
