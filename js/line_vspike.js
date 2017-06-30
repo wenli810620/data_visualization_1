@@ -32,7 +32,7 @@
   var focus = svg.append("g").style("display","none");
 
   // import data and create chart
-  d3.csv("source/data_0628.csv", function(d) {
+  d3.csv("source/line_vspike.csv", function(d) {
       return {
         date: parseDate(d.date),
         Airbnb: +d.Airbnb,

@@ -1,5 +1,4 @@
 
-
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 150, bottom: 30, left: 60},
     width = 960 - margin.left - margin.right,
@@ -11,33 +10,15 @@ var parseTime = d3.timeParse("%Y");
 var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
-// define the area
-var area = d3.area()
-    .x(function(d) { return x(d.date); })
-    .y0(height)
-    .y1(function(d) { return y(d.close); });
-
-var area2 = d3.area() 
-    .x(function(d) { return x(d.date); })
-    .y0(height)
-    .y1(function(d) { return y(d.open); });   
-
-var area3 = d3.area() 
-    .x(function(d) { return x(d.date); })
-    .y0(height)
-    .y1(function(d) { return y(d.internet); });  
 // define the 1st line
 var valueline = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
 
-var valueline2 = d3.line()    
+// define the 2nd line
+var valueline2 = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.open); });
-
-var valueline3  = d3.line()    
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.internet); });    
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
@@ -49,70 +30,62 @@ var svg = d3.select("body").append("svg")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-// get the data
-d3.csv("source/area_chart.csv", function(error, data) {
+// Get the data
+d3.csv("source/line_vspike.csv", function(error, data) {
   if (error) throw error;
 
   // format the data
   data.forEach(function(d) {
       d.date = parseTime(d.date);
-      d.close = +d.close;
-      d.open = +d.open;
-      d.internet = +d.internet;
+      d.close = +d.Airbnb;
+      d.open = +d.Technology;
   });
-
-  // scale the range of the data
+  
+  // Scale the range of the data
   x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0, d3.max(data, function(d) { 
-    return Math.max(d.close, d.open); })]);
-    
-// add the valueline path.
+  y.domain([0, d3.max(data, function(d) {
+	  return Math.max(d.close, d.open); })]);
+
+  // Add the valueline path.
   svg.append("path")
       .data([data])
       .attr("class", "line")
       .attr("d", valueline);
 
-  // add the area
-  svg.append("path")
-       .data([data])
-       .attr("class", "area")
-       .attr("d", area);
-
- // Add the valueline2 path.
+  // Add the valueline2 path.
   svg.append("path")
       .data([data])
       .attr("class", "line")
       .style("stroke", "orange")
       .attr("d", valueline2);
 
-  // add the area
-  svg.append("path")
-       .data([data])
-       .attr("class", "area2")
-       .attr("d", area2);    
+   // add the dots
+  svg.selectAll("dot")
+     .data(data)
+     .enter().append("circle")
+       .attr("r", 5)
+       .attr("class", "series")
+       .style("fill", "blue")
+       .attr("cx", function(d) { return x(d.date); })
+       .attr("cy", function(d) { return y(d.close); });  
 
-  // Add the valueline3 path.
-  svg.append("path")
-      .data([data])
-      .attr("class", "line")
-      .style("stroke", "purple")
-      .attr("d", valueline3);
+  svg.selectAll("dot")
+     .data(data)
+     .enter().append("circle")
+       .attr("r", 5)
+       .attr("class", "series")
+       .style("fill", "orange")
+       .attr("cx", function(d) { return x(d.date); })
+       .attr("cy", function(d) { return y(d.open); });         
 
-  // add the area
-  svg.append("path")
-       .data([data])
-       .attr("class", "area3")
-       .attr("d", area3);  
-
-  // add the X Axis
+  // Add the X Axis
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
-  // add the Y Axis
+  // Add the Y Axis
   svg.append("g")
-      .call(d3.axisLeft(y))
-    .append("text")
+      .call(d3.axisLeft(y)).append("text")
           .attr("fill", "#000")
           .attr("transform","rotate(-90)")
           .attr("y",-60)
@@ -135,11 +108,4 @@ d3.csv("source/area_chart.csv", function(error, data) {
     .style("fill", "orange")
     .text("Technology Industry");  
 
-    svg.append("text") 
-    .attr("transform", "translate(" + (width+3) + "," + y(data[0].internet) + ")")
-    .attr("dy", ".2em")
-    .style("pading",".1em")
-    .attr("text-anchor", "start")
-    .style("fill", "purple")
-    .text("Internet Industry");          
 });

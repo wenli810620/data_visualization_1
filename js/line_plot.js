@@ -1,7 +1,7 @@
 // basic SVG setup
-  var margin = { top: 20, right: 100, bottom: 40, left: 100 };
-  var height = 500 - margin.top - margin.bottom;
-  var width = 960 - margin.left - margin.right;
+  var margin = { top: 30, right: 150, bottom: 40, left: 100 };
+  var height = 400 - margin.top - margin.bottom;
+  var width = 1000 - margin.left - margin.right;
 
   var svg = d3.select("body").append("svg")
       .attr("width",width + margin.left + margin.right)
@@ -15,8 +15,8 @@
   var color = d3.scale.category10();
 
   // setup the axes
-  var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-  var yAxis = d3.svg.axis().scale(yScale).orient("left");
+  var xAxis = d3.svg.axis().scale(xScale).orient("bottom").ticks(5);
+  var yAxis = d3.svg.axis().scale(yScale).orient("left").ticks(5);
 
   // create function to parse dates into date objects
   var parseDate = d3.time.format("%Y").parse;
@@ -46,7 +46,7 @@
         return a.date - b.date;
       });
 
-      // color domain
+         // color domain
       color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
       // create stocks array with object for each company containing all data
@@ -54,20 +54,25 @@
         return {
           name: name,
           values: data.map(function(d){
+
             return {date: d.date, close: d[name]};
           })
         };
       });
+
      
-      var colordot = d3.keys(data[0]).filter(function(d) { return d !== "date"; })
+
+     /* var colordot = d3.keys(data[0]).filter(function(d) { return d !== "date"; })
       var stockdot = colordot.map(function(stockdot){
+        
         return data.map(function(d){
-          
+          console.log(d);
           return {x: +d.date, y: +d[stockdot] };
          
         });
-      });
+      });*/
       
+
       // add domain ranges to the x and y scales
       xScale.domain([
         d3.min(stocks, function(c) { return d3.min(c.values, function(v) { return v.date; }); }),
@@ -79,7 +84,7 @@
         d3.max(stocks, function(c) { return d3.max(c.values, function(v) { 
           return v.close; }); })
       ]);
-
+       
       // add the x axis
       svg.append("g")
         .attr("class", "x axis")
@@ -111,30 +116,27 @@
           return line(d.values); 
         })
         .style("stroke", function(d) { return color(d.name); });
-
       
-     //check the construct logic 
-     /* svg.selectAll(".series")
+    
+    /*  svg.selectAll(".series")
           .data(stockdot)
       .enter().append("g")
       .selectAll(".point")
          .data(function(d) {
-          console.log(d);
           return d; })  
           .enter().append("circle")
           .attr("class", "point")
           .attr("r", 2)
           .attr("cx", function(d){
-            console.log(d);
             return xScale(d.x);
           })
           .attr("cy", function(d){
             return yScale(d.y);
-          })*/
+          }) */
       
 
       // add the stock labels at the right edge of chart
-      var maxLen = data.length;
+     var maxLen = data.length;
       stock.append("text")
         .datum(function(d) { 
           return {name: d.name, value: d.values[maxLen - 1]}; 

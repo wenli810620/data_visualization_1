@@ -22,10 +22,7 @@ var area2 = d3.area()
     .y0(height)
     .y1(function(d) { return y(d.open); });   
 
-var area3 = d3.area() 
-    .x(function(d) { return x(d.date); })
-    .y0(height)
-    .y1(function(d) { return y(d.internet); });  
+
 // define the 1st line
 var valueline = d3.line()
     .x(function(d) { return x(d.date); })
@@ -35,9 +32,7 @@ var valueline2 = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.open); });
 
-var valueline3  = d3.line()    
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.internet); });    
+
 
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
@@ -50,7 +45,7 @@ var svg = d3.select("body").append("svg")
           "translate(" + margin.left + "," + margin.top + ")");
 
 // get the data
-d3.csv("source/area_chart.csv", function(error, data) {
+d3.csv("source/area_chart_gap_data.csv", function(error, data) {
   if (error) throw error;
 
   // format the data
@@ -91,19 +86,6 @@ d3.csv("source/area_chart.csv", function(error, data) {
        .attr("class", "area2")
        .attr("d", area2);    
 
-  // Add the valueline3 path.
-  svg.append("path")
-      .data([data])
-      .attr("class", "line")
-      .style("stroke", "purple")
-      .attr("d", valueline3);
-
-  // add the area
-  svg.append("path")
-       .data([data])
-       .attr("class", "area3")
-       .attr("d", area3);  
-
   // add the X Axis
   svg.append("g")
       .attr("transform", "translate(0," + height + ")")
@@ -134,12 +116,5 @@ d3.csv("source/area_chart.csv", function(error, data) {
     .attr("text-anchor", "start")
     .style("fill", "orange")
     .text("Technology Industry");  
-
-    svg.append("text") 
-    .attr("transform", "translate(" + (width+3) + "," + y(data[0].internet) + ")")
-    .attr("dy", ".2em")
-    .style("pading",".1em")
-    .attr("text-anchor", "start")
-    .style("fill", "purple")
-    .text("Internet Industry");          
+        
 });
